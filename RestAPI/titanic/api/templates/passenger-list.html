@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Passenger {% endblock %}
+
+{% block content %}
+
+<div class='w-75 mx-auto my-4'>
+    <div class="table-responsive" style="height: 500px;overflow: scroll;">
+        <table class="table table-hover table-dark table-bordered">
+            <thead>
+            <tr>
+                {% for column in columns %}
+                    <th scope="col">{{column}}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+                {% for value in values %}
+                    <tr>
+                    {% for i in value %}
+                            <td>{{ i }}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
+</div>    
+
+<br><br>
+
+<div class='w-75 mx-auto my-4'>
+    <form action="{% url 'passengers-filter-list' %}" method='POST'>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label" for="Search">Search:</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" name='Search' placeholder="">
+            </div>
+        </div>
+        
+        <div class="mb-3">   
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>    
+</div>
+
+
+{% endblock %}
+
+
+{% block js_files %}
+    <script src="{% static 'blog/js/script.js' %}"></script>
+{% endblock %}
